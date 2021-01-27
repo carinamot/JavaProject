@@ -11,6 +11,11 @@ public class ListCommand extends Command {
 		super(CommandType.LIST);
 		this.usernames = usernames;
 	}
+	
+	public ListCommand() {
+		super(CommandType.LIST);
+		this.usernames = null;
+	}
 
 	public List<String> getUsernames() {
 		return usernames;

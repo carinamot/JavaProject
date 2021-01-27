@@ -1,5 +1,7 @@
 package Controller;
 
+import java.util.List;
+
 import ex.Service.UserService;
 
 public class UserController {
@@ -8,6 +10,10 @@ public class UserController {
 
 	public UserController() {
 		userService = new UserService();
+	}
+	
+	public List<String> getUsers() {
+		return userService.getUsers();
 	}
 	
 	public boolean login(String username) {

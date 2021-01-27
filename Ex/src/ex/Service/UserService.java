@@ -8,15 +8,23 @@ import ex.Model.Command.*;
 public class UserService {
 
 	Set<String> logins = new HashSet<>();
-	Queue<String> users = new PriorityQueue<>();
+	List<String> users = new ArrayList<>();
 	
+	public List<String> getUsers() {
+		return users;
+	}
+
+	public void setUsers(List<String> users) {
+		this.users = users;
+	}
+
 	public boolean isLoggedIn(String username) {
 		return logins.contains(username);
 	}
 	
 	public void login(String username) {
 		logins.add(username);
-		users.offer(username);
+		users.add(username);
 	}
 
 	public boolean minTwoPlayers() {
@@ -24,10 +32,6 @@ public class UserService {
 	}
 
 	public String deque() {
-		return users.poll();
-	}
-	
-	public String isAlreadyLoggedIn() {
-		return new AlreadyLoggedInCommand().toString();
+		return users.remove(0);
 	}
 }

@@ -1,5 +1,6 @@
 package Controller;
 
+import ex.Model.Command.ListCommand;
 import ex.Service.*;
 
 
@@ -7,17 +8,14 @@ public class ClientMessageController {
 
 	private final HelloService helloService;
 	private final LoginService loginService;
-	private final ListService listService;
 	private final QueueService queueService;
 	private final MoveService moveService;
 	
 	public ClientMessageController(String description) {
 		helloService = new HelloService("I am a player!");
 		loginService = new LoginService();
-		listService	 = new ListService();
 		queueService = new QueueService();
 		moveService	 = new MoveService();
-		
 	}
 
 	public String hello() {
@@ -29,7 +27,7 @@ public class ClientMessageController {
 	}
 	
 	public String list() {
-		return listService.list();
+		return new ListCommand().toString();
 	}
 	
 	public String queue() {

@@ -1,25 +1,25 @@
 package Controller;
 
+import java.util.List;
+
+import ex.Model.Command.AlreadyLoggedInCommand;
+import ex.Model.Command.ListCommand;
 import ex.Service.*;
 
 public class ServerMessageController {
 
 	private final HelloService helloService;
 	private final LoginService loginService;
-	private final ListService listService;
 	private final NewGameService newgameService;
 	private final MoveService moveService;
 	private final GameOverService gameoverService;
-	private final UserService userService;
 
 	public ServerMessageController(String description) {
 		helloService = new HelloService("Welcome to my server!");
 		loginService = new LoginService();
-		listService	 = new ListService();
 		newgameService = new NewGameService();
 		moveService	= new MoveService();
 		gameoverService= new GameOverService();
-		userService	= new UserService();
 	}
 
 	public String hello() {
@@ -31,8 +31,8 @@ public class ServerMessageController {
 		return loginService.login();
 	}
 
-	public String list() {
-		return listService.list();
+	public String list(List<String> usernames) {
+		return new ListCommand(usernames).toString();
 	}
 
 	public String newgame() {
@@ -49,6 +49,6 @@ public class ServerMessageController {
 	
 	public String isAlreadyLoggedIn()
 	{
-		return userService.isAlreadyLoggedIn();
+		return new AlreadyLoggedInCommand().toString();
 	}
 }
