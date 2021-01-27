@@ -1,6 +1,7 @@
 package ex.Model.Command;
 
 import java.util.List;
+import java.util.Objects;
 
 public class MoveCommand extends Command {
 	
@@ -18,8 +19,10 @@ public class MoveCommand extends Command {
 	@Override
 	public String toString() {
 		final StringBuilder string = new StringBuilder(super.toString());
-		this.moveNumbers.forEach(moveNumber -> string.append(Command.SEPARATOR).append(moveNumber));
-		return string.toString();
+		if (Objects.nonNull(moveNumbers)) {
+			moveNumbers.forEach(username -> string.append(Command.SEPARATOR).append(username));
+		}
+		return string.append("\n").toString();
 	}
 
 }

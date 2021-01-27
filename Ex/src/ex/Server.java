@@ -34,7 +34,7 @@ public class Server
 			socket = server.accept();
 			
 			// takes input from the client socket 
-			in = new DataInputStream(new BufferedInputStream(socket.getInputStream())); 
+			in = new DataInputStream(socket.getInputStream()); 
 
 			out = new DataOutputStream(socket.getOutputStream()); 
 			
@@ -42,12 +42,25 @@ public class Server
 			System.out.println(hello);
 			
 			out.writeUTF(message.hello());
+			out.flush();
 			
 			String login = in.readUTF();
 			System.out.println(login);
 			
-			out.writeUTF(message.loginResponse());
+			out.writeUTF(message.loginResponse(login));
+			out.flush();
+			
+			
+			String list = in.readUTF();
+			System.out.println(list);
 
+			out.writeUTF(message.list());
+			
+			String move=in.readUTF();
+			System.out.println(move);
+			
+			out.writeUTF(message.move());
+			
 			// reads message from client until "Stop" is sent 
 			while (true) 
 			{ 

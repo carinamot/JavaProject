@@ -22,6 +22,6 @@ public class LoginCommand extends Command {
 		if (Objects.nonNull(username)) {
 			string.append(Command.SEPARATOR).append(username);
 		}
-		return string.toString();
+		return string.append("\n").toString();
 	}
 }

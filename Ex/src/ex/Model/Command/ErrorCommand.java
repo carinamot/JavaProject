@@ -21,7 +21,7 @@ public class ErrorCommand extends Command {
 		if (Objects.nonNull(description)) {
 			string.append(Command.SEPARATOR).append(description);
 		}
-		return string.toString();
+		return string.append("\n").toString();
 	}
 	
 	

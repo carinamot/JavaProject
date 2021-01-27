@@ -1,6 +1,7 @@
 package ex.Model.Command;
 
 import java.util.List;
+import java.util.Objects;
 
 public class NewGameCommand extends Command {
 	
@@ -24,9 +25,14 @@ public class NewGameCommand extends Command {
 	@Override
 	public String toString() {
 		final StringBuilder string = new StringBuilder(super.toString());
-		values.forEach(value -> string.append(Command.SEPARATOR).append(value));
-		playerNames.forEach(name -> string.append(Command.SEPARATOR).append(name));
-		return string.toString();
+		if (Objects.nonNull(values)) {
+			values.forEach(value -> string.append(Command.SEPARATOR).append(value));
+		}		
+		if (Objects.nonNull(values)) {
+			playerNames.forEach(name -> string.append(Command.SEPARATOR).append(name));
+		}	
+		
+		return string.append("\n").toString();
 	}
 	
 	

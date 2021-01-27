@@ -36,18 +36,35 @@ public class Client
 
 			// and the output that is connected to the Socket
 			out = new DataOutputStream(socket.getOutputStream()); 
-			in = new DataInputStream(new BufferedInputStream(socket.getInputStream())); 
+			in = new DataInputStream(socket.getInputStream()); 
 			
 			out.writeUTF(message.hello());
+			out.flush();
 			
 			String hello = in.readUTF();
 			System.out.println(hello);
 			
 			String username = input.readLine();
 			out.writeUTF(message.loginRequest(username));
+			out.flush();
 			
 			String loginConfirmed = in.readUTF();
 			System.out.println(loginConfirmed);
+			
+			out.writeUTF(message.list());
+			out.flush();
+			
+			String list =in.readUTF();
+			System.out.println(list);
+			
+			
+			out.writeUTF(message.move());
+			out.flush();
+			
+			String move=in.readUTF();
+			System.out.println(move);
+			
+			
 
 		} 
 		catch(UnknownHostException u) 

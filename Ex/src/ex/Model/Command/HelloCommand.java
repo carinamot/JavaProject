@@ -25,6 +25,7 @@ public class HelloCommand extends Command {
 
 	@Override
 	public String toString() {
-		return super.toString() + Command.SEPARATOR + this.description;
+		return super.toString() + Command.SEPARATOR + this.description+"\n";
+		
 	}
 }

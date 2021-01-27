@@ -22,6 +22,6 @@ public class ListCommand extends Command {
 		if (Objects.nonNull(usernames)) {
 			usernames.forEach(username -> string.append(Command.SEPARATOR).append(username));
 		}
-		return string.toString();
+		return string.append("\n").toString();
 	}
 }
