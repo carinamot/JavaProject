@@ -4,6 +4,7 @@ package ex;
 
 import java.net.*;
 
+import Controller.ClientMessageController;
 import ex.Model.Board;
 
 import java.io.*; 
@@ -17,27 +18,36 @@ public class Client
 	private Socket socket;
 	private BufferedReader input;
 	private DataOutputStream out;
-	private ObjectInputStream in;
+	private DataInputStream in;
 
 	// constructor that takes the IP Address and the Port
 	public Client(String address, int port) 
 	{ 
+		ClientMessageController message = new ClientMessageController("asd");
+		
 		// we try to establish a connection 
 		try
 		{ 
 			// creates a socket with the given information
 			socket = new Socket(address, port); 
-			System.out.println("Enter you username:"); 
 
 			// we 'ready' the input reader 
 			input = new BufferedReader(new InputStreamReader(System.in));
 
 			// and the output that is connected to the Socket
 			out = new DataOutputStream(socket.getOutputStream()); 
-			in = new ObjectInputStream(socket.getInputStream());
+			in = new DataInputStream(new BufferedInputStream(socket.getInputStream())); 
 			
-			String line1 = input.readLine(); // reads the line from the keyboard
-			out.writeUTF(line1);
+			out.writeUTF(message.hello());
+			
+			String hello = in.readUTF();
+			System.out.println(hello);
+			
+			String username = input.readLine();
+			out.writeUTF(message.loginRequest(username));
+			
+			String loginConfirmed = in.readUTF();
+			System.out.println(loginConfirmed);
 
 		} 
 		catch(UnknownHostException u) 
@@ -46,34 +56,7 @@ public class Client
 		} 
 		catch(IOException i) 
 		{ 
-			System.out.println(i); 
-		} 
-
-		// string to read message from input 
-		String line = ""; 
-
-		// keep reading until "Stop" is input 
-		while (!line.equals("Stop")) 
-		{ 
-			try
-			{ 
-				Board test = (Board) in.readObject();
-				test.printBoard();
-				System.out.print("Enter X:");
-				String x = input.readLine();
-				System.out.print("Enter Y:");
-				String y = input.readLine();
-				out.writeUTF(x + ","+ y); // writes it to the output stream
-				// now we just need to collect the data  from the socket on our server
-				
-			} 
-			catch(IOException i) 
-			{ 
-				System.out.println(i); 
-			} 
-			catch(Exception e) {
-				System.out.println(e);
-			}
+			System.out.println(i.getMessage()); 
 		} 
 
 		// close the connection 
