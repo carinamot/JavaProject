@@ -37,25 +37,33 @@ public class Client
 					String command=input.readLine();
 					String[] parts= commandController.decomposeCommand(command);
 					CommandType commandType = commandController.verifyCommand(parts[0]);
+					String response;
 					switch(commandType) {
 					case LOGIN:
 						String username = parts[1];
 						pipe.write(message.loginRequest(username));
-
-						String loginConfirmed = pipe.read();
-						System.out.println(loginConfirmed);
+						response=pipe.read();
+						System.out.println(response);
 						break;
 						
 					case LIST:
 						pipe.write(message.list());
-						String list=pipe.read();
-						System.out.println(list);
+						response=pipe.read();
+						System.out.println(response);
+						break;
+						
+					case MOVE:
+						pipe.write(message.move(parts[1]));
+						response=pipe.read();
+						System.out.println(response);
 						break;
 					
+					case QUEUE:
+						
+										
 					}
 					
-					String response=pipe.read();
-					System.out.println(response);
+					
 				}
 
 //				String username = input.readLine();

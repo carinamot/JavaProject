@@ -54,7 +54,7 @@ public class ClientThread implements Runnable {
 				default:
 					pipe.write(messageController.move());
 				}
-				pipe.read();
+				
 			}
 		} catch (IOException e) {
 			e.printStackTrace();

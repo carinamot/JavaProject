@@ -34,7 +34,7 @@ public class ClientMessageController {
 		return queueService.queue();
 	}
 	
-	public String move() {
+	public String move(String moveNumber) {
 		return moveService.move();
 	}
 	
