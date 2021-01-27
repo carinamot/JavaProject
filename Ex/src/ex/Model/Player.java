@@ -27,8 +27,19 @@ public class Player {
 	public String toString() {
 		return name;
 	}
+
+	@Override
+	public int hashCode() {
+		return name.hashCode();
+	}
 	
-
-
+	@Override
+	public boolean equals(Object obj) {
+		if (!obj.getClass().equals(this.getClass())) {
+			return false;
+		}
+		Player other = (Player) obj;
+		return other.name.equals(name);
+	}
 	
 }
