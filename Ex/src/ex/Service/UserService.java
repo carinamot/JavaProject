@@ -4,16 +4,23 @@ import java.util.*;
 
 public class UserService {
 
-	Queue<String> users= new PriorityQueue<>();
+	Set<String> logins = new HashSet<>();
+	Queue<String> users = new PriorityQueue<>();
+	
+	public boolean isLoggedIn(String username) {
+		return logins.contains(username);
+	}
+	
+	public void login(String username) {
+		logins.add(username);
+		users.offer(username);
+	}
 
 	public boolean minTwoPlayers() {
-
 		return users.size()>=2; 
-
 	}
 
 	public String deque() {
-
 		return users.poll();
 	}
 }

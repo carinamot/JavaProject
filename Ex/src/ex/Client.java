@@ -6,25 +6,18 @@ import java.net.*;
 
 import Controller.ClientMessageController;
 import ex.Model.Board;
+import ex.Service.CommunicationService;
 
 import java.io.*; 
 
 public class Client 
-{ 
-	// We initialize our socket( tunnel )
-	// and our input reader and output stream
-	// we will take the input from the user
-	// and send it to the socket using output stream
-	private Socket socket;
-	private BufferedReader input;
-	private DataOutputStream out;
-	private DataInputStream in;
-
+{
 	// constructor that takes the IP Address and the Port
 	public Client(String address, int port) 
 	{ 
 		ClientMessageController message = new ClientMessageController("asd");
 		
+<<<<<<< HEAD
 		// we try to establish a connection 
 		try
 		{ 
@@ -87,6 +80,30 @@ public class Client
 		{ 
 			System.out.println(i); 
 		} 
+=======
+		try (Socket socket = new Socket(address, port)) {
+			try (CommunicationService pipe = new CommunicationService(
+					new DataInputStream(socket.getInputStream()),
+					new DataOutputStream(socket.getOutputStream()))) {
+				BufferedReader input = new BufferedReader(new InputStreamReader(System.in));
+
+				pipe.write(message.hello());
+				
+				String hello = pipe.read();
+				System.out.println(hello);
+				
+				String username = input.readLine();
+				pipe.write(message.loginRequest(username));
+				
+				String loginConfirmed = pipe.read();
+				System.out.println(loginConfirmed);
+			}
+		} catch (UnknownHostException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+>>>>>>> 742458c (threads)
 	} 
 
 	public static void main(String args[]) 

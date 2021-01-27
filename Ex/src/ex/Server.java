@@ -1,29 +1,25 @@
 package ex;
 
 import java.net.*;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ThreadPoolExecutor;
 
+import Controller.CommunicationController;
 import Controller.ServerMessageController;
 import ex.Model.*;
 
 import java.io.*; 
 
 public class Server 
-{ 
-	//initialize socket and input stream 
-	private Socket socket;
-	private ServerSocket server;
-	private DataInputStream in;
-	private DataOutputStream out;
-
-	
+{
 	// creates a server and connects it to the given port 
 	public Server(int port) 
 	{ 
-		
-		ServerMessageController message = new ServerMessageController("sad");
+		ThreadPoolExecutor executor = (ThreadPoolExecutor) Executors.newCachedThreadPool();
 		// starts server and waits for a connection 
-		try
+		try (ServerSocket server = new ServerSocket(port))
 		{ 
+<<<<<<< HEAD
 			// we start our server
 			server = new ServerSocket(port);
 
@@ -62,19 +58,19 @@ public class Server
 			out.writeUTF(message.move());
 			
 			// reads message from client until "Stop" is sent 
+=======
+>>>>>>> 742458c (threads)
 			while (true) 
 			{ 
+				Socket socket = server.accept();
+				executor.execute(new CommunicationController(socket));
 			}
-
-			// close connection 
-//			socket.close(); 
-//			in.close(); 
-		} 
+		}
 		catch(IOException i) 
 		{ 
 			System.out.println(i); 
 		} 
-	} 
+	}
 
 	public static void main(String args[]) 
 	{ 
