@@ -26,8 +26,8 @@ public class CommunicationController implements Runnable {
 			pipe.read();
 			pipe.write(messageController.hello());
 			
-			pipe.read();
-			pipe.write(messageController.loginResponse());
+			String username = pipe.read();
+			pipe.write(messageController.loginResponse(username));
 			
 		} catch (IOException e) {
 			e.printStackTrace();
