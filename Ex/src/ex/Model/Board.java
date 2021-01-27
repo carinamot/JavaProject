@@ -12,13 +12,15 @@ import java.util.*;
 public class Board implements Serializable 
 {
 	private BallsColor[][] balls;
+	public static int numRows=7;
+	public static int numCols=7;
 
 	public Board() {
 		super();
 		//ball = ball;
 		balls = new BallsColor [7][7];
-		for ( int r = 0; r < 7 ; r++) {
-			for (int c = 0; c < 7; c++) {
+		for ( int r = 0; r < numRows ; r++) {
+			for (int c = 0; c < numCols; c++) {
 //				BallsColor possibleChoice = new BallsColor();
 //				while(true) {
 //					if(isBallValid(r, c, possibleChoice)) { 
@@ -89,8 +91,8 @@ public class Board implements Serializable
 
 
 	public void printBoard() {
-		for ( int row = 0; row < 7 ; row++) {
-			for (int column = 0; column < 7; column++) {
+		for ( int row = 0; row < numRows ; row++) {
+			for (int column = 0; column < numCols; column++) {
 				System.out.println(balls[row][column]+"\t");
 			}
 			System.out.println();
