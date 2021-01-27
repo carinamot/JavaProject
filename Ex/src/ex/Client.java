@@ -5,7 +5,10 @@ package ex;
 import java.net.*;
 
 import Controller.ClientMessageController;
+import Controller.CommandController;
 import ex.Model.Board;
+import ex.Model.Command.Command;
+import ex.Model.Command.CommandType;
 import ex.Service.CommunicationService;
 
 import java.io.*; 
@@ -15,6 +18,8 @@ public class Client
 	// constructor that takes the IP Address and the Port
 	public Client(String address, int port) 
 	{ 
+		CommandController commandController= new CommandController();
+	
 		ClientMessageController message = new ClientMessageController("asd");
 
 		try (Socket socket = new Socket(address, port)) {
@@ -27,28 +32,53 @@ public class Client
 
 				String hello = pipe.read();
 				System.out.println(hello);
+				
+				while(true) {
+					String command=input.readLine();
+					String[] parts= commandController.decomposeCommand(command);
+					CommandType commandType = commandController.verifyCommand(parts[0]);
+					switch(commandType) {
+					case LOGIN:
+						String username = parts[1];
+						pipe.write(message.loginRequest(username));
 
-				String username = input.readLine();
-				pipe.write(message.loginRequest(username));
+						String loginConfirmed = pipe.read();
+						System.out.println(loginConfirmed);
+						break;
+						
+					case LIST:
+						pipe.write(message.list());
+						String list=pipe.read();
+						System.out.println(list);
+						break;
+					
+					}
+					
+					String response=pipe.read();
+					System.out.println(response);
+				}
 
-				String loginConfirmed = pipe.read();
-				System.out.println(loginConfirmed);
+//				String username = input.readLine();
+//				pipe.write(message.loginRequest(username));
+//
+//				String loginConfirmed = pipe.read();
+//				System.out.println(loginConfirmed);
 
-				pipe.write(message.loginRequest(username));
-
-				String loginConfirmed2 = pipe.read();
-				System.out.println(loginConfirmed2);
-
-
-				pipe.write(message.list());
-
-				String list= pipe.read();
-				System.out.println(list);
-
-				pipe.write(message.move());
-
-				String move=pipe.read();
-				System.out.println(move);
+//				pipe.write(message.loginRequest(username));
+//
+//				String loginConfirmed2 = pipe.read();
+//				System.out.println(loginConfirmed2);
+//
+//
+//				pipe.write(message.list());
+//
+//				String list= pipe.read();
+//				System.out.println(list);
+//
+//				pipe.write(message.move());
+//
+//				String move=pipe.read();
+//				System.out.println(move);
 
 			}
 		} catch (UnknownHostException e) {

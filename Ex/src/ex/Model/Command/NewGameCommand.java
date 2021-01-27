@@ -32,7 +32,7 @@ public class NewGameCommand extends Command {
 			playerNames.forEach(name -> string.append(Command.SEPARATOR).append(name));
 		}	
 		
-		return string.append("\n").toString();
+		return string.toString();
 	}
 	
 	

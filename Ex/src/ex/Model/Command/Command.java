@@ -16,7 +16,7 @@ public abstract class Command {
 
 	@Override
 	public String toString() {
-		return this.commandType.name()+"\n";
+		return this.commandType.name();
 	}
 	
 }

@@ -22,7 +22,7 @@ public class MoveCommand extends Command {
 		if (Objects.nonNull(moveNumbers)) {
 			moveNumbers.forEach(username -> string.append(Command.SEPARATOR).append(username));
 		}
-		return string.append("\n").toString();
+		return string.toString();
 	}
 
 }
