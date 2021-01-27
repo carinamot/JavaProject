@@ -45,29 +45,37 @@ public class Board implements Serializable
 		}
 		return true;
 	}
+	
+	public boolean isEmpty(int row, int column){
+		return balls[row][column].getColor()==BallsColor.NONE;
+	}
+	
+	public Ball get(int row, int column){
+		return balls[row][column];
+	}
+	
+	public void set(int row, int column, Ball ball){
+		balls[row][column]=ball;
+	}
 
 	public void handleMove(int currentX, int currentY, String direction) {
 
-		if(direction=="left" && currentY!=0)
-		{
+		if(direction=="left" && currentY!=0){
 			Ball a=balls[currentX][currentY];
 			balls[currentX][currentY]=balls[currentX][currentY-1];
 			balls[currentX][currentY-1]=a;
 		}
-		if(direction=="right" && currentY!=6)
-		{
+		if(direction=="right" && currentY!=6){
 			Ball a=balls[currentX][currentY];
 			balls[currentX][currentY]=balls[currentX][currentY+1];
 			balls[currentX][currentY+1]=a;
 		}
-		if(direction=="up" && currentX!=0)
-		{
+		if(direction=="up" && currentX!=0){
 			Ball a=balls[currentX][currentY];
 			balls[currentX][currentY]=balls[currentX-1][currentY];
 			balls[currentX-1][currentY]=a;
 		}
-		if(direction=="down" && currentX!=6)
-		{
+		if(direction=="down" && currentX!=6){
 			Ball a=balls[currentX][currentY];
 			balls[currentX][currentY]=balls[currentX+1][currentY];
 			balls[currentX+1][currentY]=a;
@@ -78,27 +86,23 @@ public class Board implements Serializable
 
 	public void Pair(int currentX, int currentY)
 	{
-		if(balls[currentX][currentY].compareTo(balls[currentX][currentY-1])==0)
-		{
-			balls[currentX][currentX].setColor(BallsColor.none);
-			balls[currentX][currentY-1].setColor(BallsColor.none);
+		if(balls[currentX][currentY].compareTo(balls[currentX][currentY-1])==0){
+			balls[currentX][currentX].setColor(BallsColor.NONE);
+			balls[currentX][currentY-1].setColor(BallsColor.NONE);
 		}
 
-		if(balls[currentX][currentY].compareTo(balls[currentX][currentY+1])==0)
-		{
-			balls[currentX][currentX].setColor(BallsColor.none);
-			balls[currentX][currentY+1].setColor(BallsColor.none);
+		if(balls[currentX][currentY].compareTo(balls[currentX][currentY+1])==0){
+			balls[currentX][currentX].setColor(BallsColor.NONE);
+			balls[currentX][currentY+1].setColor(BallsColor.NONE);
 		}
 
-		if(balls[currentX][currentY].compareTo(balls[currentX-1][currentY])==0)
-		{
-			balls[currentX][currentX].setColor(BallsColor.none);
-			balls[currentX-1][currentY].setColor(BallsColor.none);
+		if(balls[currentX][currentY].compareTo(balls[currentX-1][currentY])==0){
+			balls[currentX][currentX].setColor(BallsColor.NONE);
+			balls[currentX-1][currentY].setColor(BallsColor.NONE);
 		}
-		if(balls[currentX][currentY].compareTo(balls[currentX+1][currentY])==0)
-		{
-			balls[currentX][currentX].setColor(BallsColor.none);
-			balls[currentX+1][currentY].setColor(BallsColor.none);
+		if(balls[currentX][currentY].compareTo(balls[currentX+1][currentY])==0){
+			balls[currentX][currentX].setColor(BallsColor.NONE);
+			balls[currentX+1][currentY].setColor(BallsColor.NONE);
 		}
 	}
 
