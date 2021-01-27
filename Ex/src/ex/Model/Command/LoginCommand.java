@@ -11,6 +11,6 @@ public class LoginCommand extends Command {
 	
 	@Override
 	public String toString() {
-		return super.toString() + "~" + this.username;
+		return super.toString() + Command.SEPARATOR + this.username;
 	}
 }

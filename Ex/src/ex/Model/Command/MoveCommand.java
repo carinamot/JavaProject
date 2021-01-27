@@ -18,7 +18,7 @@ public class MoveCommand extends Command {
 	@Override
 	public String toString() {
 		final StringBuilder string = new StringBuilder(super.toString());
-		this.moveNumbers.forEach(moveNumber -> string.append("~").append(moveNumber));
+		this.moveNumbers.forEach(moveNumber -> string.append(Command.SEPARATOR).append(moveNumber));
 		return string.toString();
 	}
 

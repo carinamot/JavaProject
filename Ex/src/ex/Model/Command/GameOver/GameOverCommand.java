@@ -7,15 +7,15 @@ import ex.Model.Command.Command;
 import ex.Model.Command.CommandType;
 
 public class GameOverCommand extends Command {
-	
+
 	private final GameOverReason reason;
-	
+
 	private final Player winner;
 
 	public GameOverReason getReason() {
 		return reason;
 	}
-	
+
 	public Player getWinner() {
 		return winner;
 	}
@@ -29,13 +29,11 @@ public class GameOverCommand extends Command {
 	@Override
 	public String toString() {
 		final StringBuilder string = new StringBuilder(super.toString());
-		string.append('~').append(reason.name());
+		string.append(Command.SEPARATOR).append(reason.name());
 		if (Objects.nonNull(winner)) {
-			string.append('~').append(winner.getName());
+			string.append(Command.SEPARATOR).append(winner.getName());
 		}
 		return super.toString();
 	}
-	
-	
 
 }

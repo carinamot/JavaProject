@@ -19,7 +19,7 @@ public class ErrorCommand extends Command {
 	public String toString() {
 		final StringBuilder string = new StringBuilder(super.toString());
 		if (Objects.nonNull(description)) {
-			string.append('~').append(description);
+			string.append(Command.SEPARATOR).append(description);
 		}
 		return string.toString();
 	}
