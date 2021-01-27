@@ -15,6 +15,7 @@ public class Server
 	// creates a server and connects it to the given port 
 	public Server(int port) 
 	{ 
+		UserController userController=new UserController();
 		ThreadPoolExecutor executor = (ThreadPoolExecutor) Executors.newCachedThreadPool();
 		// starts server and waits for a connection 
 		try (ServerSocket server = new ServerSocket(port))
@@ -22,7 +23,7 @@ public class Server
 			while (true) 
 			{ 
 				Socket socket = server.accept();
-				executor.execute(new ClientThread(socket));
+				executor.execute(new ClientThread(socket, userController));
 			}
 		}
 		catch(IOException i) 

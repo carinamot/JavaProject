@@ -2,6 +2,9 @@ package ex.Service;
 
 import java.util.*;
 
+import ex.Model.Command.*;
+
+
 public class UserService {
 
 	Set<String> logins = new HashSet<>();
@@ -22,5 +25,9 @@ public class UserService {
 
 	public String deque() {
 		return users.poll();
+	}
+	
+	public String isAlreadyLoggedIn() {
+		return new AlreadyLoggedInCommand().toString();
 	}
 }

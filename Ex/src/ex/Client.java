@@ -16,7 +16,7 @@ public class Client
 	public Client(String address, int port) 
 	{ 
 		ClientMessageController message = new ClientMessageController("asd");
-		
+
 		try (Socket socket = new Socket(address, port)) {
 			try (CommunicationService pipe = new CommunicationService(
 					new DataInputStream(socket.getInputStream()),
@@ -24,26 +24,32 @@ public class Client
 				BufferedReader input = new BufferedReader(new InputStreamReader(System.in));
 
 				pipe.write(message.hello());
-				
+
 				String hello = pipe.read();
 				System.out.println(hello);
-				
+
 				String username = input.readLine();
 				pipe.write(message.loginRequest(username));
-				
+
 				String loginConfirmed = pipe.read();
 				System.out.println(loginConfirmed);
-				
+
+				pipe.write(message.loginRequest(username));
+
+				String loginConfirmed2 = pipe.read();
+				System.out.println(loginConfirmed2);
+
+
 				pipe.write(message.list());
-				
+
 				String list= pipe.read();
 				System.out.println(list);
-				
+
 				pipe.write(message.move());
-				
+
 				String move=pipe.read();
 				System.out.println(move);
-				
+
 			}
 		} catch (UnknownHostException e) {
 			e.printStackTrace();

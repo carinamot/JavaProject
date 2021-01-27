@@ -10,6 +10,7 @@ public class ServerMessageController {
 	private final NewGameService newgameService;
 	private final MoveService moveService;
 	private final GameOverService gameoverService;
+	private final UserService userService;
 
 	public ServerMessageController(String description) {
 		helloService = new HelloService("Welcome to my server!");
@@ -18,29 +19,36 @@ public class ServerMessageController {
 		newgameService = new NewGameService();
 		moveService	= new MoveService();
 		gameoverService= new GameOverService();
+		userService	= new UserService();
 	}
 
 	public String hello() {
 		return helloService.sayHello();
 	}
 
+
 	public String loginResponse(String username) {
 		return loginService.login();
 	}
-	
+
 	public String list() {
 		return listService.list();
 	}
-	
+
 	public String newgame() {
 		return newgameService.newgame();
 	}
-	
+
 	public String move() {
 		return moveService.move();
 	}
-	
+
 	public String gameover() {
 		return gameoverService.gameover();
+	}
+	
+	public String isAlreadyLoggedIn()
+	{
+		return userService.isAlreadyLoggedIn();
 	}
 }
