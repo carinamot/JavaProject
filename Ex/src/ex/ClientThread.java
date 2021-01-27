@@ -39,7 +39,6 @@ public class ClientThread implements Runnable {
 				String command = pipe.read();
 				String[] parts = commandController.decomposeCommand(command);
 				CommandType commandType = commandController.verifyCommand(parts[0]);
-				System.out.println(command);
 				switch(commandType) {
 				case LOGIN:
 					String username = parts[1];

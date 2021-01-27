@@ -28,7 +28,7 @@ public class NewGameCommand extends Command {
 		if (Objects.nonNull(values)) {
 			values.forEach(value -> string.append(Command.SEPARATOR).append(value));
 		}		
-		if (Objects.nonNull(values)) {
+		if (Objects.nonNull(playerNames)) {
 			playerNames.forEach(name -> string.append(Command.SEPARATOR).append(name));
 		}	
 		
