@@ -34,7 +34,8 @@ public class Board implements Serializable
 	}
 
 	public BallsColor getRandomColor() {
-		return BallsColor.RED;
+		Random rand= new Random();
+		return BallsColor.values()[rand.nextInt(BallsColor.values().length)];
 		
 	}
 	

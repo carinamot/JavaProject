@@ -4,7 +4,7 @@ import java.net.*;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ThreadPoolExecutor;
 
-import Controller.CommunicationController;
+import Controller.*;
 import Controller.ServerMessageController;
 import ex.Model.*;
 
@@ -22,7 +22,7 @@ public class Server
 			while (true) 
 			{ 
 				Socket socket = server.accept();
-				executor.execute(new CommunicationController(socket));
+				executor.execute(new ClientThread(socket));
 			}
 		}
 		catch(IOException i) 

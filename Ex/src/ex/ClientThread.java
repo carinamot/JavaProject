@@ -1,4 +1,4 @@
-package Controller;
+package ex;
 
 import java.io.BufferedInputStream;
 import java.io.DataInputStream;
@@ -6,14 +6,15 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
 
+import Controller.ServerMessageController;
 import ex.Service.CommunicationService;
 
-public class CommunicationController implements Runnable {
+public class ClientThread implements Runnable {
 
 	private final Socket socket;
 	private final ServerMessageController messageController;
 	
-	public CommunicationController(Socket socket) {
+	public ClientThread(Socket socket) {
 		this.socket = socket;
 		messageController = new ServerMessageController("Hello");
 	}
@@ -28,6 +29,13 @@ public class CommunicationController implements Runnable {
 			
 			String username = pipe.read();
 			pipe.write(messageController.loginResponse(username));
+			
+			pipe.read();
+			pipe.write(messageController.list());
+			
+			pipe.read();
+			pipe.write(messageController.move());
+			
 			
 		} catch (IOException e) {
 			e.printStackTrace();

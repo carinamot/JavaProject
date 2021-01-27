@@ -33,6 +33,17 @@ public class Client
 				
 				String loginConfirmed = pipe.read();
 				System.out.println(loginConfirmed);
+				
+				pipe.write(message.list());
+				
+				String list= pipe.read();
+				System.out.println(list);
+				
+				pipe.write(message.move());
+				
+				String move=pipe.read();
+				System.out.println(move);
+				
 			}
 		} catch (UnknownHostException e) {
 			e.printStackTrace();
