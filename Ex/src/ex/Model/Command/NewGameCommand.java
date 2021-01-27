@@ -24,8 +24,8 @@ public class NewGameCommand extends Command {
 	@Override
 	public String toString() {
 		final StringBuilder string = new StringBuilder(super.toString());
-		values.forEach(value -> string.append('~').append(value));
-		playerNames.forEach(name -> string.append('~').append(name));
+		values.forEach(value -> string.append(Command.SEPARATOR).append(value));
+		playerNames.forEach(name -> string.append(Command.SEPARATOR).append(name));
 		return string.toString();
 	}
 	

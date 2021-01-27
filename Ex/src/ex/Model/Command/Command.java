@@ -1,6 +1,9 @@
 package ex.Model.Command;
 
 public abstract class Command {
+	
+	public static final String SEPARATOR = "~";
+	
 	protected final CommandType commandType;
 	
 	public Command(CommandType commandType) {

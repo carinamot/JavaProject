@@ -20,7 +20,7 @@ public class ListCommand extends Command {
 	public String toString() {
 		final StringBuilder string = new StringBuilder(super.toString());
 		if (Objects.nonNull(usernames)) {
-			usernames.forEach(username -> string.append('~').append(username));
+			usernames.forEach(username -> string.append(Command.SEPARATOR).append(username));
 		}
 		return string.toString();
 	}
