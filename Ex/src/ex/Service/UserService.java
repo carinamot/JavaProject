@@ -22,16 +22,27 @@ public class UserService {
 		return logins.contains(username);
 	}
 	
+	public boolean inQueue(String username) {
+		return users.contains(username);
+	}
+	
 	public void login(String username) {
 		logins.add(username);
+	}
+	
+	public void enqueue(String username) {
 		users.add(username);
+	}
+	
+	public void dequeue(String username) {
+		users.remove(username);
 	}
 
 	public boolean minTwoPlayers() {
 		return users.size()>=2; 
 	}
 
-	public String deque() {
+	public String pop() {
 		return users.remove(0);
 	}
 }

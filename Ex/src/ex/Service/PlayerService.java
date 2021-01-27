@@ -7,9 +7,7 @@ public class PlayerService {
 
 	List<Player> players= new ArrayList<>();
 	
-	public void addPlayers(String playerName) {
-		
-		Player player=new Player(playerName);
+	public void addPlayer(Player player) {
 		players.add(player);
 	}
 	

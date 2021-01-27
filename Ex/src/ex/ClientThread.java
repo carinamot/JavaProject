@@ -9,18 +9,19 @@ import java.net.Socket;
 import Controller.CommandController;
 import Controller.ServerMessageController;
 import Controller.UserController;
+import ex.Model.Player;
 import ex.Model.Command.CommandType;
 import ex.Service.CommunicationService;
 
 public class ClientThread implements Runnable {
 
-	private final Socket socket;
+	private final Player player;
 	private final ServerMessageController messageController;
 	private final UserController userController;
 	private final CommandController commandController;
 	
 	public ClientThread(Socket socket, UserController userController) {
-		this.socket = socket;
+		player = new Player(socket);
 		messageController = new ServerMessageController("Hello");
 		this.userController = userController;
 		commandController = new CommandController();
@@ -29,8 +30,8 @@ public class ClientThread implements Runnable {
 	@Override
 	public void run() {
 		try (CommunicationService pipe = new CommunicationService(
-				new DataInputStream(socket.getInputStream()),
-				new DataOutputStream(socket.getOutputStream()))) {
+				new DataInputStream(player.getSocket().getInputStream()),
+				new DataOutputStream(player.getSocket().getOutputStream()))) {
 			pipe.read();
 			pipe.write(messageController.hello());
 			
@@ -43,18 +44,19 @@ public class ClientThread implements Runnable {
 				case LOGIN:
 					String username = parts[1];
 					if(userController.login(username)) {
-						System.out.println("ok");
+						player.setName(username);
 						pipe.write(messageController.loginResponse(username));
 					}
 					else {
-						System.out.println("nop");
 						pipe.write(messageController.isAlreadyLoggedIn());
 					}
 					break;
-				default:
-					pipe.write(messageController.move());
+				case LIST:
+					pipe.write(messageController.list(userController.getUsers()));
+					break;
+				case QUEUE:
+					userController.queue(player);
 				}
-				pipe.read();
 			}
 		} catch (IOException e) {
 			e.printStackTrace();

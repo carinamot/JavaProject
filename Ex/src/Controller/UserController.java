@@ -1,7 +1,9 @@
 package Controller;
 
 import java.util.List;
+import java.util.Objects;
 
+import ex.Model.Player;
 import ex.Service.UserService;
 
 public class UserController {
@@ -22,6 +24,18 @@ public class UserController {
 		}
 		userService.login(username);
 		return true;
+	}
+	
+	public void queue(Player player) {
+		final String username = player.getName();
+		if (Objects.nonNull(username)) {
+			if (userService.inQueue(username)) {
+				userService.dequeue(username);
+			} else {
+				userService.enqueue(username);
+			}
+		}
+		
 	}
 
 }

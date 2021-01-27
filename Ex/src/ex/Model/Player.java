@@ -1,18 +1,24 @@
 package ex.Model;
 
-public class Player {
+import java.net.Socket;
 
-	public Player(String name) {
-		super();
-		this.name = name;
+public class Player {
+	
+	private String name;
+	private Socket socket;
+
+	public Player(Socket socket) {
+		this.socket = socket;
 	}
 
-	private String name;
+	public Socket getSocket() {
+		return socket;
+	}
 
 	public String getName() {
 		return name;
 	}
-
+	
 	public void setName(String name) {
 		this.name = name;
 	}
