@@ -23,7 +23,7 @@ public class GameController {
 			board.set(i, colIndex, arr.get(i)); 
 	}
 
-	public void checkColumn(int colIndex) {
+	public void clearColumn(int colIndex) {
 		boolean hasLeft=(colIndex!=0);
 		boolean hasRight=(colIndex!=6);
 
@@ -45,7 +45,7 @@ public class GameController {
 		}
 	}
 	
-	public void checkRow(int rowIndex) {
+	public void clearRow(int rowIndex) {
 		boolean hasUp=(rowIndex!=0);
 		boolean hasDown=(rowIndex!=6);
 		
