@@ -14,5 +14,12 @@ public class GameService {
 		games.add(game);
 	}
 	
-	
+	public Game findByPlayer(Player player) {
+		for(int i=0; i<= games.size(); i++) {
+			if(games.get(i).getPlayer1()==player || games.get(i).getPlayer2()==player) {
+				return games.get(i);
+			}
+		}
+		return null;
+	}
 }

@@ -14,6 +14,18 @@ public class Game {
 		this.player2 = player2;
 	}
 	
+	public Board getBoard() {
+		return board;
+	}
+	
+	public Player getPlayer1() {
+		return player1;
+	}
+	
+	public Player getPlayer2() {
+		return player2;
+	}
+	
 	public Player nextPlayer() {
 		if(playerTurn==0) {
 			playerTurn=1;

@@ -52,7 +52,7 @@ public class Client
 					} else {
 						pipe.write(command);
 					}
-					
+
 				}
 			}
 		} catch (UnknownHostException e) {
