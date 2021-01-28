@@ -7,7 +7,6 @@ public class GameController {
 
 	private Board board= new Board();
 
-
 	public List<BallsColor> clearColumn(int colIndex) {
 		boolean hasLeft=(colIndex!=0);
 		boolean hasRight=(colIndex!=6);

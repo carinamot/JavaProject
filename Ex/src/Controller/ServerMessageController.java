@@ -1,9 +1,11 @@
 package Controller;
 
+import java.util.Collections;
 import java.util.List;
 
 import ex.Model.Command.AlreadyLoggedInCommand;
 import ex.Model.Command.ListCommand;
+import ex.Model.Command.MoveCommand;
 import ex.Service.*;
 
 public class ServerMessageController {
@@ -11,14 +13,12 @@ public class ServerMessageController {
 	private final HelloService helloService;
 	private final LoginService loginService;
 	private final NewGameService newgameService;
-	private final MoveService moveService;
 	private final GameOverService gameoverService;
 
 	public ServerMessageController(String description) {
 		helloService = new HelloService("Welcome to my server!");
 		loginService = new LoginService();
 		newgameService = new NewGameService();
-		moveService	= new MoveService();
 		gameoverService= new GameOverService();
 	}
 
@@ -39,8 +39,8 @@ public class ServerMessageController {
 		return newgameService.newgame();
 	}
 
-	public String move() {
-		return moveService.move();
+	public String move(Integer moveNumber) {
+		return new MoveCommand(Collections.singletonList(moveNumber)).toString();
 	}
 
 	public String gameover() {
