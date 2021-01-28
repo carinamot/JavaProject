@@ -11,25 +11,32 @@ public class BoardService {
 		boolean hasLeft=(colIndex!=0);
 		boolean hasRight=(colIndex!=6);
 		List<BallsColor> ballsErased=new ArrayList<>();
+		
+		boolean[] hasToClear = new boolean[Board.numRows];
 
 		for(int i=0; i<Board.numRows; i++) {
-			boolean hasToClear=false;
-
-			if(hasLeft && board.get(i, colIndex)==board.get(i-1, colIndex)) {
-				hasToClear=true;
+			if(hasLeft && board.get(i, colIndex)==board.get(i-1, colIndex) && board.get(i, colIndex) != BallsColor.N) {
+				hasToClear[i]=true;
 				ballsErased.add(board.get(i-1, colIndex));
 				board.set(i-1, colIndex, BallsColor.N);
 			}
-			if(hasRight && board.get(i, colIndex)==board.get(i+1, colIndex)) {
-				hasToClear=true;
+			if(hasRight && board.get(i, colIndex)==board.get(i+1, colIndex) && board.get(i, colIndex) != BallsColor.N) {
+				hasToClear[i]=true;
 				ballsErased.add(board.get(i+1, colIndex));
 				board.set(i+1, colIndex, BallsColor.N);
 			}
-			if(hasToClear) {
+		}
+		for (int i = 1; i < Board.numRows; i++) {
+			if (board.get(i-1, colIndex) == board.get(i-1, colIndex) && board.get(i, colIndex) != BallsColor.N) {
+				hasToClear[i-1] = true;
+				hasToClear[i] = true;
+			}
+		}
+		for (int i = 0; i < Board.numRows; i++) {
+			if (hasToClear[i]) {
 				ballsErased.add(board.get(i, colIndex));
 				board.set(i, colIndex, BallsColor.N);
 			}
-
 		}
 		return ballsErased;
 	}
@@ -39,28 +46,32 @@ public class BoardService {
 		boolean hasDown=(rowIndex!=6);
 		List<BallsColor> ballsErased=new ArrayList<>();
 
+		boolean[] hasToClear = new boolean[Board.numRows];
 		
 		for(int i=0;i<Board.numCols;i++) {
-			boolean hasToClear=false;
-			
-			if(hasUp && board.get(rowIndex, i)==board.get(rowIndex, i-1)) {
-				hasToClear=true;
+			if(hasUp && board.get(rowIndex, i)==board.get(rowIndex, i-1) && board.get(rowIndex, i) != BallsColor.N) {
+				hasToClear[i]=true;
 				ballsErased.add(board.get(rowIndex, i-1));
 				board.set(rowIndex, i-1, BallsColor.N);
 			}
 			
-			if(hasDown && board.get(rowIndex, i)==board.get(rowIndex, i+1)) {
-				hasToClear=true;
+			if(hasDown && board.get(rowIndex, i)==board.get(rowIndex, i+1) && board.get(rowIndex, i) != BallsColor.N) {
+				hasToClear[i]=true;
 				ballsErased.add(board.get(rowIndex, i+1));
 				board.set(rowIndex, i+1, BallsColor.N);
 			}
-			
-			if(hasToClear) {
-				ballsErased.add(board.get(rowIndex, i));
+		}
+		for (int i = 1; i < Board.numCols; i++) {
+			if (board.get(rowIndex, i - 1) == board.get(rowIndex, i) && board.get(rowIndex, i) != BallsColor.N) {
+				hasToClear[i-1] = true;
+				hasToClear[i] = true;
+			}
+		}
+		for (int i = 0; i < Board.numCols; i++) {
+			if (hasToClear[i]) {
 				board.set(rowIndex, i, BallsColor.N);
 			}
 		}
-		
 		return ballsErased;
 	}
 	

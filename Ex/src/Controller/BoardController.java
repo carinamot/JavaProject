@@ -19,20 +19,23 @@ public class BoardController {
 	public void setBoard(Board board) {
 		this.board = board;
 	}
-	
 
 	public void move(int index) {
 		if(index>= 0 && index<=6) {
 			boardService.moveRowLeft(board, index);
+			boardService.clearRow(board, index);
 		}
 		if(index>=7 && index<=13){
 			boardService.moveRowRight(board, index-7);
+			boardService.clearRow(board, index-7);
 		}
 		if(index>=14 && index<=20) {
 			boardService.moveColumnUp(board, index-14);
+			boardService.clearColumn(board, index-14);
 		}
 		if(index>=21 && index<=27) {
 			boardService.moveColumnDown(board, index-21);
+			boardService.clearColumn(board, index-21);
 		}
 	}
 }
