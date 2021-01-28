@@ -5,17 +5,17 @@ import java.util.Objects;
 
 public class NewGameCommand extends Command {
 	
-	private final List<Integer> values;
+	private final String board;
 	private final List<String> playerNames;
 
-	public NewGameCommand(List<Integer> values, List<String> playerNames) {
+	public NewGameCommand(String board, List<String> playerNames) {
 		super(CommandType.NEWGAME);
-		this.values = values;
+		this.board = board;
 		this.playerNames = playerNames;
 	}
 
-	public List<Integer> getValues() {
-		return values;
+	public String getBoard() {
+		return board;
 	}
 
 	public List<String> getPlayerNames() {
@@ -25,15 +25,12 @@ public class NewGameCommand extends Command {
 	@Override
 	public String toString() {
 		final StringBuilder string = new StringBuilder(super.toString());
-		if (Objects.nonNull(values)) {
-			values.forEach(value -> string.append(Command.SEPARATOR).append(value));
+		if (Objects.nonNull(board)) {
+			string.append(Command.SEPARATOR).append(board);
 		}		
 		if (Objects.nonNull(playerNames)) {
 			playerNames.forEach(name -> string.append(Command.SEPARATOR).append(name));
-		}	
-		
+		}
 		return string.toString();
 	}
-	
-	
 }

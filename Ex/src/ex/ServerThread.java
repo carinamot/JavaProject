@@ -8,6 +8,7 @@ import java.net.Socket;
 import Controller.CommandController;
 import Controller.ServerMessageController;
 import Controller.UserController;
+import ex.Model.Board;
 import ex.Model.Player;
 import ex.Model.Command.CommandType;
 import ex.Service.CommunicationService;
@@ -30,7 +31,9 @@ public class ServerThread implements Runnable {
 		try (CommunicationService pipe = new CommunicationService(
 				new DataInputStream(player.getSocket().getInputStream()),
 				new DataOutputStream(player.getSocket().getOutputStream()))) {
-			messageController= new ServerMessageController(pipe,userController);
+			
+			messageController= new ServerMessageController(pipe);
+			
 			pipe.read();
 			messageController.hello();
 
@@ -52,6 +55,7 @@ public class ServerThread implements Runnable {
 					break;
 				case QUEUE:
 					userController.queue(player);
+					messageController.newGame(new Board().toString(), "player1", "player2");
 					break;
 				}
 			}

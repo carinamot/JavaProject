@@ -8,15 +8,11 @@ import ex.Service.*;
 
 public class ServerMessageController {
 
-	private final UserController userController;
 	private final CommunicationService pipe;
 	private final static String description="Hi";
 
-
-	public ServerMessageController(CommunicationService pipe, UserController userController) {
+	public ServerMessageController(CommunicationService pipe) {
 		this.pipe=pipe;
-		this.userController= userController;
-		
 	}
 
 	public void hello() throws IOException {
@@ -36,9 +32,9 @@ public class ServerMessageController {
 		pipe.write(new ListCommand(usernames).toString());
 	}
 
-//	public void newgame() throws IOException {
-//		pipe.write(new NewGameCommand().);
-//	}
+	public void newGame(String board, String user1, String user2) throws IOException {
+		pipe.write(new NewGameCommand(board, Arrays.asList(user1, user2)).toString());
+	}
 
 	public void move(Integer moveNumber) throws IOException{
 		pipe.write(new MoveCommand(Collections.singletonList(moveNumber)).toString());
