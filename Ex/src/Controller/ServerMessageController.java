@@ -12,9 +12,17 @@ public class ServerMessageController {
 	private final CommunicationService pipe;
 	private final static String description="Hi";
 
+<<<<<<< HEAD
 	public ServerMessageController(CommunicationService pipe, UserController userController) {
 		this.pipe=pipe;
 		this.userController= userController;
+=======
+	public ServerMessageController(String description) {
+		helloService = new HelloService("Welcome to my server!");
+		loginService = new LoginService();
+		newgameService = new NewGameService();
+		gameoverService= new GameOverService();
+>>>>>>> branch 'dev' of https://github.com/carinamot/JavaProject.git
 	}
 
 	public void hello() throws IOException {

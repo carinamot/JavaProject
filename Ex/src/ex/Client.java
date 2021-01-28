@@ -21,8 +21,16 @@ public class Client
 					new DataOutputStream(socket.getOutputStream()))) {
 				ClientMessageController message = new ClientMessageController(pipe);
 				ConsoleService console = new ConsoleService();
-
+				
+				Thread reader = new Thread(new ClientThread(socket, pipe));
+				
 				message.hello();
+				console.write(pipe.read());
+				
+				message.login();
+				console.write(pipe.read());
+				
+				reader.start();
 				
 				while(true) {
 					String command = console.readLine("Command: ");
