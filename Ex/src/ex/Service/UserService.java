@@ -30,11 +30,11 @@ public class UserService {
 		logins.add(username);
 	}
 	
-	public void enqueue(Player username) {
+	public void enqueue(Player player) {
 		
 		Player player1;
 		Player player2;
-		users.add(username);
+		users.add(player);
 		
 		if(minTwoPlayers())
 		{
@@ -44,8 +44,8 @@ public class UserService {
 		}
 	}
 	
-	public void dequeue(String username) {
-		users.remove(username);
+	public void dequeue(Player player) {
+		users.remove(player);
 	}
 
 	public boolean minTwoPlayers() {

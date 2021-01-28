@@ -30,9 +30,9 @@ public class UserController {
 		final String username = player.getName();
 		if (Objects.nonNull(username)) {
 			if (userService.inQueue(username)) {
-				userService.dequeue(username);
+				userService.dequeue(player);
 			} else {
-				userService.enqueue(username);
+				userService.enqueue(player);
 			}
 		}
 		
