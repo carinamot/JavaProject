@@ -48,9 +48,11 @@ public class Client
 					if(commandType==CommandType.MOVE)
 					{
 						boardController.move(Integer.parseInt(arr[1]));
-						viewController.displayBoard(boardController.getBoard());;
+						viewController.displayBoard(boardController.getBoard());
+					} else {
+						pipe.write(command);
 					}
-					pipe.write(command);
+					
 				}
 			}
 		} catch (UnknownHostException e) {
