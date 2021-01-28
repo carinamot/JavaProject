@@ -52,6 +52,7 @@ public class ClientThread implements Runnable {
 			case NEWGAME:
 				viewController.displayBoard(command);
 				break;
+			
 		}
 
 	}
