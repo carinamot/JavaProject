@@ -2,6 +2,7 @@ package ex.Model;
 
 import java.util.*;
 
+import Controller.CommandController;
 import ex.Model.Command.Command;
 
 public class Board
@@ -10,10 +11,11 @@ public class Board
 	public static int numRows=7;
 	public static int numCols=7;
 
+
 	public Board() {
 		super();
 		//ball = ball;
-		balls = new BallsColor [7][7];
+		balls = new BallsColor [Board.numRows][Board.numCols];
 		for ( int r = 0; r < numRows ; r++) {
 			for (int c = 0; c < numCols; c++) {
 				//				BallsColor possibleChoice = new BallsColor();
@@ -24,6 +26,19 @@ public class Board
 				//					possibleChoice = new BallsColor();
 				//				}
 				balls[r][c] = getRandomColor();
+			}
+		}
+	}
+	
+	public Board(String[] values ) {
+		balls = new BallsColor [Board.numRows][Board.numCols];
+		int k=0;
+		for(int i=0; i<Board.numRows;i++) {
+			for(int j=0;j<Board.numCols;j++)
+			{
+			
+				k++;
+				balls[i][j]= BallsColor.valueOf(values[k]);
 			}
 		}
 	}
@@ -50,7 +65,7 @@ public class Board
 	//	}
 
 	public boolean isEmpty(int row, int column){
-		return balls[row][column]==BallsColor.NONE;
+		return balls[row][column]==BallsColor.N;
 	}
 
 	public BallsColor get(int row, int column) {

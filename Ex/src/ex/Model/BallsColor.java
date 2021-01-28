@@ -4,18 +4,18 @@ import java.io.Serializable;
 
 public enum BallsColor implements Serializable {
 
-	RED, YELLOW, GREEN, BLUE, ORANGE, PINK, NONE;
+	R, Y, G, B, O, P, N;
 	
 	@Override
 	public String toString() {
 		switch (this) {
-		case BLUE: return "B";
-		case RED: return "R";
-		case YELLOW: return "Y";
-		case GREEN: return "G";
-		case ORANGE: return "O";
-		case PINK: return "P";
-		case NONE: return "N";
+		case B: return "B";
+		case R: return "R";
+		case Y: return "Y";
+		case G: return "G";
+		case O: return "O";
+		case P: return "P";
+		case N: return "N";
 		default: return "-";
 		}
 	}
