@@ -4,7 +4,11 @@ package ex;
 
 import java.net.*;
 
+import Controller.BoardController;
 import Controller.ClientMessageController;
+import Controller.CommandController;
+import Controller.ViewController;
+import ex.Model.Command.CommandType;
 import ex.Service.CommunicationService;
 import ex.Service.ConsoleService;
 
@@ -22,7 +26,9 @@ public class Client
 				ClientMessageController message = new ClientMessageController(pipe);
 				ConsoleService console = new ConsoleService();
 				
-				Thread reader = new Thread(new ClientThread(socket, pipe));
+				BoardController boardController= new BoardController();
+				
+				Thread reader = new Thread(new ClientThread(socket, pipe, boardController));
 				
 				message.hello();
 				console.write(pipe.read());
@@ -32,8 +38,18 @@ public class Client
 				
 				reader.start();
 				
+				ViewController viewController=new ViewController();
+				
 				while(true) {
 					String command = console.readLine("Command: ");
+					CommandController commandController=new CommandController();
+					String [] arr=commandController.decomposeCommand(command);
+					CommandType commandType= commandController.verifyCommand(arr[0]);
+					if(commandType==CommandType.MOVE)
+					{
+						boardController.move(Integer.parseInt(arr[1]));
+						viewController.displayBoard(boardController.getBoard());;
+					}
 					pipe.write(command);
 				}
 			}

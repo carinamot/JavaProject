@@ -5,6 +5,7 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
 import Controller.*;
+import ex.Model.Board;
 import ex.Model.Player;
 import ex.Model.Command.CommandType;
 import ex.Service.CommunicationService;
@@ -16,14 +17,16 @@ public class ClientThread implements Runnable {
 	private final ClientMessageController messageController;
 	private final ConsoleService console;
 	private final CommandController commandController;
+	private final BoardController boardController;
 	private final ViewController viewController;
 	
-	public ClientThread(Socket socket, CommunicationService pipe) {
+	public ClientThread(Socket socket, CommunicationService pipe, BoardController boardController) {
 		player = new Player(socket);
 		messageController = new ClientMessageController(pipe);
 		console = new ConsoleService();
 		commandController= new CommandController();
 		viewController = new ViewController();
+		this.boardController=boardController;
 	}
 
 	@Override
@@ -50,6 +53,7 @@ public class ClientThread implements Runnable {
 				viewController.displayList(command);
 				break;
 			case NEWGAME:
+				boardController.setBoard(new Board(parts));
 				viewController.displayBoard(command);
 				break;
 			

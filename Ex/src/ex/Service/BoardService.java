@@ -12,22 +12,22 @@ public class BoardService {
 		boolean hasRight=(colIndex!=6);
 		List<BallsColor> ballsErased=new ArrayList<>();
 
-		for(int i=0; i<Board.numCols; i++) {
+		for(int i=0; i<Board.numRows; i++) {
 			boolean hasToClear=false;
 
 			if(hasLeft && board.get(i, colIndex)==board.get(i-1, colIndex)) {
 				hasToClear=true;
 				ballsErased.add(board.get(i-1, colIndex));
-				board.set(i-1, colIndex, BallsColor.NONE);
+				board.set(i-1, colIndex, BallsColor.N);
 			}
 			if(hasRight && board.get(i, colIndex)==board.get(i+1, colIndex)) {
 				hasToClear=true;
 				ballsErased.add(board.get(i+1, colIndex));
-				board.set(i+1, colIndex, BallsColor.NONE);
+				board.set(i+1, colIndex, BallsColor.N);
 			}
 			if(hasToClear) {
 				ballsErased.add(board.get(i, colIndex));
-				board.set(i, colIndex, BallsColor.NONE);
+				board.set(i, colIndex, BallsColor.N);
 			}
 
 		}
@@ -40,23 +40,24 @@ public class BoardService {
 		List<BallsColor> ballsErased=new ArrayList<>();
 
 		
-		for(int i=0;i<Board.numRows;i++) {
+		for(int i=0;i<Board.numCols;i++) {
 			boolean hasToClear=false;
 			
 			if(hasUp && board.get(rowIndex, i)==board.get(rowIndex, i-1)) {
 				hasToClear=true;
 				ballsErased.add(board.get(rowIndex, i-1));
-				board.set(rowIndex, i-1, BallsColor.NONE);
+				board.set(rowIndex, i-1, BallsColor.N);
 			}
 			
 			if(hasDown && board.get(rowIndex, i)==board.get(rowIndex, i+1)) {
 				hasToClear=true;
 				ballsErased.add(board.get(rowIndex, i+1));
-				board.set(rowIndex, i+1, BallsColor.NONE);
+				board.set(rowIndex, i+1, BallsColor.N);
 			}
+			
 			if(hasToClear) {
 				ballsErased.add(board.get(rowIndex, i));
-				board.set(rowIndex, i, BallsColor.NONE);
+				board.set(rowIndex, i, BallsColor.N);
 			}
 		}
 		
@@ -66,13 +67,13 @@ public class BoardService {
 	public void moveColumnUp(Board board, int colIndex) {
 		List<BallsColor> arr = new ArrayList<>();
 
-		for (int i = 0; i <= Board.numCols-1; i++)
+		for (int i = 0; i <= Board.numRows-1; i++)
 		{
-			if (board.isEmpty(i,colIndex))
+			if (!board.isEmpty(i,colIndex))
 			{
 				arr.add(board.get(i, colIndex));
 			}
-			board.set(i,colIndex,BallsColor.NONE);
+			board.set(i,colIndex,BallsColor.N);
 		}
 		for (int i = 0; i < arr.size(); i++)
 			board.set(i, colIndex, arr.get(i)); 
@@ -81,13 +82,13 @@ public class BoardService {
 	public void moveColumnDown(Board board, int colIndex) {
 		List<BallsColor> arr = new ArrayList<>();
 
-		for (int i = Board.numCols-1; i >= 0; i--)
+		for (int i = Board.numRows-1; i >= 0; i--)
 		{
-			if (board.isEmpty(i,colIndex))
+			if (!board.isEmpty(i,colIndex))
 			{
 				arr.add(board.get(i, colIndex));
 			}
-			board.set(i, colIndex,BallsColor.NONE); 
+			board.set(i, colIndex,BallsColor.N); 
 		}
 		for (int i = 0; i < arr.size(); i++)
 			board.set(i,colIndex, arr.get(i));
@@ -97,13 +98,13 @@ public class BoardService {
 	public void moveRowLeft(Board board, int rowIndex) {
 		List<BallsColor> arr = new ArrayList<>();
 
-		for (int i = 0; i <=Board.numRows-1; i++)
+		for (int i = 0; i <=Board.numCols-1; i++)
 		{
-			if (board.isEmpty(rowIndex,i))
+			if (!board.isEmpty(rowIndex,i))
 			{
 				arr.add(board.get(rowIndex, i));
 			}
-			board.set(rowIndex, i,BallsColor.NONE); 
+			board.set(rowIndex, i,BallsColor.N); 
 		}
 		for (int i = 0; i < arr.size(); i++)
 			board.set(rowIndex,i,arr.get(i));
@@ -112,13 +113,13 @@ public class BoardService {
 	public void moveRowRight(Board board, int rowIndex) {
 		List<BallsColor> arr = new ArrayList<>();
 
-		for (int i = Board.numRows-1 ; i >= 0; i--)
+		for (int i = Board.numCols-1 ; i >= 0; i--)
 		{
-			if (board.isEmpty(rowIndex,i))
+			if (!board.isEmpty(rowIndex,i))
 			{
 				arr.add(board.get(rowIndex, i));
 			}
-			board.set(rowIndex, i,BallsColor.NONE); 
+			board.set(rowIndex, i,BallsColor.N); 
 		}
 		for (int i = 0; i < arr.size(); i++)
 			board.set(rowIndex, i, arr.get(i));
