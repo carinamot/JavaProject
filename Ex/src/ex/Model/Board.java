@@ -2,6 +2,8 @@ package ex.Model;
 
 import java.util.*;
 
+import ex.Model.Command.Command;
+
 public class Board
 {
 	private BallsColor[][] balls;
@@ -95,6 +97,14 @@ public class Board
 
 	@Override
 	public String toString() {
-		return "Board [size=" + Arrays.toString(balls) + ", ball=" + "]";
+		StringBuilder string= new StringBuilder();
+		if(Objects.nonNull(balls)) {
+			for(int i=0; i<Board.numRows; i++) {
+				for(int j=0; j<Board.numCols; j++) {
+					string.append(Command.SEPARATOR).append(balls[i][j]);
+				}
+			}
+		}
+		return string.toString();
 	}
 }

@@ -1,50 +1,53 @@
 package Controller;
 
-import java.util.Collections;
-import java.util.List;
-
-import ex.Model.Command.AlreadyLoggedInCommand;
-import ex.Model.Command.ListCommand;
-import ex.Model.Command.MoveCommand;
+import java.io.*;
+import java.util.*;
+import ex.Model.Command.*;
+import ex.Model.Command.GameOver.GameOverCommand;
 import ex.Service.*;
 
 public class ServerMessageController {
 
-	private final HelloService helloService;
-	private final LoginService loginService;
-	private final NewGameService newgameService;
-	private final GameOverService gameoverService;
+	private final UserController userController;
+	private final CommunicationService pipe;
+	private final static String description="Hi";
 
-	public ServerMessageController(String description) {
-		helloService = new HelloService(description);
-		loginService = new LoginService();
-		newgameService = new NewGameService();
-		gameoverService= new GameOverService();
+	public ServerMessageController(CommunicationService pipe, UserController userController) {
+		this.pipe=pipe;
+		this.userController= userController;
 	}
 
-	public String hello() {
-		return helloService.sayHello();
+	public void hello() throws IOException {
+		pipe.write(new HelloCommand(description, null).toString());
 	}
 
 
-	public String loginResponse(String username) {
-		return loginService.login();
+	public void loginResponse(String username) throws IOException {
+//		String username = parts[1];
+		if(userController.login(username)) {
+//			player.setName(username);
+			pipe.write(new LoginCommand(username).toString());
+		}
+		else {
+			pipe.write(new AlreadyLoggedInCommand().toString());
+		}
+		pipe.write(new LoginCommand().toString());
 	}
 
-	public String list(List<String> usernames) {
-		return new ListCommand(usernames).toString();
+	public void list() throws IOException {
+		pipe.write(new ListCommand(userController.getUsers()).toString());
 	}
 
-	public String newgame() {
-		return newgameService.newgame();
+//	public void newgame() throws IOException {
+//		pipe.write(new NewGameCommand().);
+//	}
+
+	public void move(Integer moveNumber) throws IOException{
+		pipe.write(new MoveCommand(Collections.singletonList(moveNumber)).toString());
 	}
 
-	public String move(Integer moveNumber) {
-		return new MoveCommand(Collections.singletonList(moveNumber)).toString();
-	}
-
-	public String gameover() {
-		return gameoverService.gameover();
+	public void gameover() throws IOException {
+		pipe.write(new GameOverCommand(null,null).toString());
 	}
 	
 	public String isAlreadyLoggedIn()
