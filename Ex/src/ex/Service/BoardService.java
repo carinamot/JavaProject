@@ -54,6 +54,7 @@ public class BoardService {
 				ballsErased.add(board.get(rowIndex, i+1));
 				board.set(rowIndex, i+1, BallsColor.N);
 			}
+			
 			if(hasToClear) {
 				ballsErased.add(board.get(rowIndex, i));
 				board.set(rowIndex, i, BallsColor.N);
