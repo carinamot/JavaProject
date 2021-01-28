@@ -2,14 +2,7 @@ package ex.Model;
 
 import java.util.*;
 
-import ex.Model.*;
-import ex.Model.BallsColor;
-
-import java.io.Serializable;
-import java.util.*;
-
-
-public class Board implements Serializable 
+public class Board
 {
 	private BallsColor[][] balls;
 	public static int numRows=7;

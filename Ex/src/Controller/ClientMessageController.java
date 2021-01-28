@@ -1,43 +1,42 @@
 package Controller;
 
-import java.util.Arrays;
+import java.io.IOException;
 import java.util.Collections;
 
-import ex.Model.Command.ListCommand;
-import ex.Model.Command.MoveCommand;
+import ex.Model.Command.*;
 import ex.Service.*;
 
 
 public class ClientMessageController {
-
-	private final HelloService helloService;
-	private final LoginService loginService;
-	private final QueueService queueService;
 	
-	public ClientMessageController(String description) {
-		helloService = new HelloService("I am a player!");
-		loginService = new LoginService();
-		queueService = new QueueService();
+	private final static String description = "Hi, I am Bob";
+	private final CommunicationService pipe;
+	private final ConsoleService console;
+	
+	public ClientMessageController(CommunicationService pipe) {
+		this.pipe = pipe;
+		console = new ConsoleService();
+	}
+	
+	public void login() throws IOException {
+		String username = console.readLine("Username: ");
+		pipe.write(new LoginCommand(username).toString());
 	}
 
-	public String hello() {
-		return helloService.sayHello();
+	public void hello() throws IOException {
+		pipe.write(new HelloCommand(description, null).toString());
 	}
 	
-	public String loginRequest(String username) {
-		return loginService.login(username);
+	public void list() throws IOException {
+		pipe.write(new ListCommand().toString());
 	}
 	
-	public String list() {
-		return new ListCommand().toString();
+	public void queue() throws IOException {
+		pipe.write(new QueueCommand().toString());
 	}
 	
-	public String queue() {
-		return queueService.queue();
-	}
-	
-	public String move(Integer moveNumber) {
-		return new MoveCommand(Collections.singletonList(moveNumber)).toString();
+	public void move(Integer moveNumber) throws IOException {
+		pipe.write(new MoveCommand(Collections.singletonList(moveNumber)).toString());
 	}
 	
 }

@@ -1,8 +1,5 @@
 package ex.Model;
 
-import ex.Model.Board;
-import ex.Model.Player;
-
 public class Game {
 
 	private Board board;

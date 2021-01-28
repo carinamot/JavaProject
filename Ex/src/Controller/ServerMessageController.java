@@ -16,7 +16,7 @@ public class ServerMessageController {
 	private final GameOverService gameoverService;
 
 	public ServerMessageController(String description) {
-		helloService = new HelloService("Welcome to my server!");
+		helloService = new HelloService(description);
 		loginService = new LoginService();
 		newgameService = new NewGameService();
 		gameoverService= new GameOverService();
