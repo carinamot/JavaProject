@@ -3,20 +3,19 @@ package ex.Service;
 import java.util.*;
 import java.util.stream.Collectors;
 
+import ex.Model.Game;
+import ex.Model.Player;
 import ex.Model.Command.*;
 
 
 public class UserService {
 
 	Set<String> logins = new HashSet<>();
-	List<String> users = new ArrayList<>();
+	List<Player> users = new ArrayList<>();
+	List<Game> games	= new ArrayList<>();
 	
 	public List<String> getUsers() {
 		return logins.stream().collect(Collectors.toList());
-	}
-
-	public void setUsers(List<String> users) {
-		this.users = users;
 	}
 
 	public boolean isLoggedIn(String username) {
@@ -31,8 +30,18 @@ public class UserService {
 		logins.add(username);
 	}
 	
-	public void enqueue(String username) {
+	public void enqueue(Player username) {
+		
+		Player player1;
+		Player player2;
 		users.add(username);
+		
+		if(minTwoPlayers())
+		{
+			player1=this.pop();
+			player2=this.pop();
+			games.add(new Game(player1,player2));
+		}
 	}
 	
 	public void dequeue(String username) {
@@ -43,7 +52,7 @@ public class UserService {
 		return users.size()>=2; 
 	}
 
-	public String pop() {
+	public Player pop() {
 		return users.remove(0);
 	}
 }
