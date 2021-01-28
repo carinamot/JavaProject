@@ -24,20 +24,16 @@ public class ServerMessageController {
 	}
 
 
-	public void loginResponse(String username) throws IOException {
-//		String username = parts[1];
-		if(userController.login(username)) {
-//			player.setName(username);
-			pipe.write(new LoginCommand(username).toString());
-		}
-		else {
-			pipe.write(new AlreadyLoggedInCommand().toString());
-		}
+	public void login() throws IOException {
 		pipe.write(new LoginCommand().toString());
 	}
 
-	public void list() throws IOException {
-		pipe.write(new ListCommand(userController.getUsers()).toString());
+	public void alreadyLoggedIn() throws IOException {
+		pipe.write(new AlreadyLoggedInCommand().toString());
+	}
+
+	public void list(List<String> usernames) throws IOException {
+		pipe.write(new ListCommand(usernames).toString());
 	}
 
 //	public void newgame() throws IOException {
@@ -52,8 +48,5 @@ public class ServerMessageController {
 		pipe.write(new GameOverCommand(null,null).toString());
 	}
 	
-	public String isAlreadyLoggedIn()
-	{
-		return new AlreadyLoggedInCommand().toString();
-	}
+	
 }

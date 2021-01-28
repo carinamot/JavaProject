@@ -40,13 +40,19 @@ public class ServerThread implements Runnable {
 				CommandType commandType = commandController.verifyCommand(parts[0]);
 				switch(commandType) {
 				case LOGIN:
-					messageController.loginResponse(parts[1]);
+					if (userController.login(parts[1])) {
+						player.setName(parts[1]);
+						messageController.login();
+					} else {
+						messageController.alreadyLoggedIn();
+					}
 					break;
 				case LIST:
-					messageController.list();
+					messageController.list(userController.getUsers());
 					break;
 				case QUEUE:
-
+					userController.queue(player);
+					break;
 				}
 			}
 		} catch (IOException e) {
