@@ -1,13 +1,13 @@
-package Controller;
+package ex.Service;
 
 import java.util.*;
 import ex.Model.*;
 
-public class GameController {
+public class BoardService {
 
-	private Board board= new Board();
+	
 
-	public List<BallsColor> clearColumn(int colIndex) {
+	public List<BallsColor> clearColumn(Board board, int colIndex) {
 		boolean hasLeft=(colIndex!=0);
 		boolean hasRight=(colIndex!=6);
 		List<BallsColor> ballsErased=new ArrayList<>();
@@ -34,7 +34,7 @@ public class GameController {
 		return ballsErased;
 	}
 	
-	public List<BallsColor> clearRow(int rowIndex) {
+	public List<BallsColor> clearRow(Board board, int rowIndex) {
 		boolean hasUp=(rowIndex!=0);
 		boolean hasDown=(rowIndex!=6);
 		List<BallsColor> ballsErased=new ArrayList<>();
@@ -63,7 +63,7 @@ public class GameController {
 		return ballsErased;
 	}
 	
-	public void moveColumnUp(int colIndex) {
+	public void moveColumnUp(Board board, int colIndex) {
 		List<BallsColor> arr = new ArrayList<>();
 
 		for (int i = 0; i <= Board.numCols-1; i++)
@@ -78,7 +78,7 @@ public class GameController {
 			board.set(i, colIndex, arr.get(i)); 
 	}
 
-	public void moveColumnDown(int colIndex) {
+	public void moveColumnDown(Board board, int colIndex) {
 		List<BallsColor> arr = new ArrayList<>();
 
 		for (int i = Board.numCols-1; i >= 0; i--)
@@ -94,7 +94,7 @@ public class GameController {
 	}
 
 
-	public void moveRowLeft(int rowIndex) {
+	public void moveRowLeft(Board board, int rowIndex) {
 		List<BallsColor> arr = new ArrayList<>();
 
 		for (int i = 0; i <=Board.numRows-1; i++)
@@ -109,7 +109,7 @@ public class GameController {
 			board.set(rowIndex,i,arr.get(i));
 	}
 
-	public void moveRowRight(int rowIndex) {
+	public void moveRowRight(Board board, int rowIndex) {
 		List<BallsColor> arr = new ArrayList<>();
 
 		for (int i = Board.numRows-1 ; i >= 0; i--)
