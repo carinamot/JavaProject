@@ -49,6 +49,9 @@ public class ClientThread implements Runnable {
 			case LIST:
 				viewController.displayList(command);
 				break;
+			case NEWGAME:
+				viewController.displayBoard(command);
+				break;
 		}
 
 	}
